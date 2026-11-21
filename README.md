@@ -2,6 +2,8 @@
 
 A C driver for the TCA9548A I²C multiplexer. `setMuxChecked()` reports invalid addresses, invalid channels, and failed bus transactions.
 
+[![Validation](https://github.com/svazqz/tca9548a/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/svazqz/tca9548a/actions/workflows/ci.yml)
+
 [Quick start](#quick-start) · [Validation](#validation) · [Project layout](#project-layout)
 
 ## Quick start
