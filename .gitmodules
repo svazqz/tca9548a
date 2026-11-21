@@ -1,0 +1,3 @@
+[submodule "soft_i2c"]
+	path = soft_i2c
+	url = https://github.com/svazqz/soft_i2c.git

@@ -1,5 +1,5 @@
-#ifndef _TCA9548A_H
-#define _TCA9548A_H
+#ifndef TCA9548A_H
+#define TCA9548A_H
 
 #include <soft_i2c.h>
 
@@ -7,7 +7,9 @@
 extern "C" {
 #endif
 
-void setMux(unsigned int, unsigned int);
+/* Returns false on an invalid address, channel, or bus failure. */
+bool setMuxChecked(unsigned int address, unsigned int channel);
+void setMux(unsigned int address, unsigned int channel);
 
 #ifdef __cplusplus
 }

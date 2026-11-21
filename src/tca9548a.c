@@ -1,15 +1,19 @@
 #include <tca9548a.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-void setMux(unsigned int muxAddress, unsigned int channel) {
-  // Set channel on sensor mux
-  i2c_start(*getBus());
-  i2c_send_byte(*getBus(), muxAddress << 1 | I2C_WRITE);
-  i2c_send_byte(*getBus(), 1 << channel);
-  i2c_stop(*getBus());
+bool setMuxChecked(unsigned int address, unsigned int channel)
+{
+    if (address < 0x70 || address > 0x77 || channel >= 8)
+        return false;
+
+    i2c_t bus = *getBus();
+    i2c_start(bus);
+    bool selected = i2c_send_byte(bus, (uint8_t)((address << 1) | I2C_WRITE)) == I2C_ACK &&
+                    i2c_send_byte(bus, (uint8_t)(1U << channel)) == I2C_ACK;
+    i2c_stop(bus);
+    return selected && i2c_status() == I2C_OK;
 }
-#ifdef __cplusplus
+
+void setMux(unsigned int address, unsigned int channel)
+{
+    (void)setMuxChecked(address, channel);
 }
-#endif
