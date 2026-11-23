@@ -18,6 +18,16 @@ The driver archive is `build/libtca9548a.a`. Build the bundled `soft_i2c` librar
 
 ## Validation
 
+The same Docker command used by GitHub Actions runs the unit tests with
+sanitizers and enforces at least 95% line coverage for the production driver.
+
+```sh
+git submodule update --init
+docker run --rm --network none \
+  --mount "type=bind,source=$PWD,target=/src,readonly" \
+  gcc:14-bookworm sh /src/tests/run-container-tests.sh tca9548a
+```
+
 ```sh
 make test
 ```
