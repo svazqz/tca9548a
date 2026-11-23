@@ -23,9 +23,10 @@ jobs:
         with:
           persist-credentials: false
           submodules: "recursive"
-      - name: "Build the driver archive"
-        run: "make -j2 all"
-      - name: "Run hardware-free unit tests"
-        run: "make test"
-      - name: "Run address and undefined behavior sanitizers"
-        run: "make BUILD_DIR=build/sanitized CFLAGS='-O1 -g -Werror -fsanitize=address,undefined -fno-omit-frame-pointer' LDFLAGS='-fsanitize=address,undefined' test"
+      - name: "Run unit tests, sanitizers, and line coverage in Docker"
+        shell: bash
+        run: |
+          set -o pipefail
+          docker run --rm --network none \
+            --mount "type=bind,source=$GITHUB_WORKSPACE,target=/src,readonly" \
+            gcc:14-bookworm sh /src/tests/run-container-tests.sh tca9548a | tee -a "$GITHUB_STEP_SUMMARY"
