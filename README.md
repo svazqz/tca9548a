@@ -42,3 +42,7 @@ The tests simulate I²C and run without connected hardware. Checks cover channel
 | [`src/`](src/) | Driver implementation |
 | [`tests/`](tests/) | Mock-bus unit tests |
 | [`soft_i2c/`](soft_i2c/) | Pinned GPIO-based I²C submodule |
+
+## License
+
+Original project code is available under the [MIT License](LICENSE). Third-party components retain their own terms.
